@@ -1,2 +1,47 @@
 ---
-# tasks file for .
+- name: Required packages are installed
+  apt:
+    name: {{ item }}
+    state: latest
+  with_items:
+  - python-psycopg2
+  - node-less  # Required for in-request django-compressor compression.
+
+- name: Project user is present
+  user:
+    name: "{{ gunicorn-django-user }}"
+
+- name: Home directory is present
+  file: name: "/home/{{ gunicorn-django-user }}"
+    state: directory
+    owner: "{{ gunicorn-django-user }}"
+    group: "{{ gunicorn-django-user }}"
+
+- name: Gunicorn .service file is in place
+  template:
+    src: gunicorn.service.j2
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn-django-project-name }}.service
+  register: servicefile
+
+- name: Gunicorn .socket file is in place
+  template:
+    src: gunicorn.socket.j2
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn-django-project-name }}.socket
+  register: socketfile
+
+- name: Gunicorn tmpfiles.d file is in place
+  template:
+    src: tmpfiles_gunicorn.j2
+    dest: /etc/tmpfiles.d/gunicorn.{{ gunicorn-django-project-name }}.conf
+  register: tmpfiles
+
+- name: systemd units are reloaded
+  command: systemctl --system daemon-reload
+  when:
+    servicefile|changed or socketfile|changed or tmpfiles|changed
+
+- name: Gunicorn service is enabled and started
+  service:
+    name: gunicorn.{{ gunicorn-django-project-name }}
+    state: started
+    enabled: true
