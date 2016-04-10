@@ -12,7 +12,8 @@
     name: "{{ gunicorn-django-project-name }}"
 
 - name: Home directory is present
-  file: name: "/home/{{ gunicorn-django-project-name }}"
+  file:
+    name: "/home/{{ gunicorn-django-project-name }}"
     state: directory
     owner: "{{ gunicorn-django-project-name }}"
     group: "{{ gunicorn-django-project-name }}"
