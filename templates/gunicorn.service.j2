@@ -17,7 +17,7 @@ ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
 Environment=DEBUG={{ gunicorn_django_debug }}
-Environment=ALLOWED_HOSTS={{ {{ gunicorn_django_allowed-hosts }}
+Environment=ALLOWED_HOSTS={{ gunicorn_django_allowed_hosts }}
 Environment=MEDIA_ROOT={{ gunicorn_django_media_root }}
 Environment=DATABASE_URL={{ gunicorn_django_database_url }}
 Environment=SECRET_KEY={{ gunicorn_django_secret_key }}
