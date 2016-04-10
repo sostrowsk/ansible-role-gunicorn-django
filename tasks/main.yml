@@ -30,12 +30,6 @@
     dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.socket
   register: socketfile
 
-- name: Gunicorn tmpfiles.d file is in place
-  template:
-    src: tmpfiles_gunicorn.j2
-    dest: /etc/tmpfiles.d/gunicorn.{{ gunicorn_django_project_name }}.conf
-  register: tmpfiles
-
 - name: systemd units are reloaded
   command: systemctl --system daemon-reload
   when:
