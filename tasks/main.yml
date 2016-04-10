@@ -22,18 +22,13 @@
   template:
     src: gunicorn.service.j2
     dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.service
-  register: servicefile
+  notify: Reload systemd units
 
 - name: Gunicorn .socket file is in place
   template:
     src: gunicorn.socket.j2
     dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.socket
-  register: socketfile
-
-- name: systemd units are reloaded
-  command: systemctl --system daemon-reload
-  when:
-    servicefile|changed or socketfile|changed or tmpfiles|changed
+  notify: Reload systemd units
 
 - name: Gunicorn service is enabled and started
   service:

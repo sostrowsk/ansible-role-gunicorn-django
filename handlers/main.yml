@@ -1,2 +1,3 @@
 ---
-# handlers file for .
+- name: Reload systemd units
+  command: systemctl --system daemon-reload
