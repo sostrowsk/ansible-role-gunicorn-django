@@ -1,7 +1,7 @@
 ---
 - name: Required packages are installed
   apt:
-    name: {{ item }}
+    name: "{{ item }}"
     state: latest
   with_items:
   - python-psycopg2
@@ -9,31 +9,31 @@
 
 - name: Project user is present
   user:
-    name: "{{ gunicorn-django-project-name }}"
+    name: "{{ gunicorn_django_project_name }}"
 
 - name: Home directory is present
   file:
-    name: "/home/{{ gunicorn-django-project-name }}"
+    name: "/home/{{ gunicorn_django_project_name }}"
     state: directory
-    owner: "{{ gunicorn-django-project-name }}"
-    group: "{{ gunicorn-django-project-name }}"
+    owner: "{{ gunicorn_django_project_name }}"
+    group: "{{ gunicorn_django_project_name }}"
 
 - name: Gunicorn .service file is in place
   template:
     src: gunicorn.service.j2
-    dest: /etc/systemd/system/gunicorn.{{ gunicorn-django-project-name }}.service
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.service
   register: servicefile
 
 - name: Gunicorn .socket file is in place
   template:
     src: gunicorn.socket.j2
-    dest: /etc/systemd/system/gunicorn.{{ gunicorn-django-project-name }}.socket
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.socket
   register: socketfile
 
 - name: Gunicorn tmpfiles.d file is in place
   template:
     src: tmpfiles_gunicorn.j2
-    dest: /etc/tmpfiles.d/gunicorn.{{ gunicorn-django-project-name }}.conf
+    dest: /etc/tmpfiles.d/gunicorn.{{ gunicorn_django_project_name }}.conf
   register: tmpfiles
 
 - name: systemd units are reloaded
@@ -43,6 +43,6 @@
 
 - name: Gunicorn service is enabled and started
   service:
-    name: gunicorn.{{ gunicorn-django-project-name }}
+    name: gunicorn.{{ gunicorn_django_project_name }}
     state: started
     enabled: true
