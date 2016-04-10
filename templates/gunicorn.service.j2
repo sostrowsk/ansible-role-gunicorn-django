@@ -1,0 +1,26 @@
+[Unit]
+Description=gunicorn daemon for {{ gunicorn-django-project-name }}
+Requires=gunicorn.{{ gunicorn-django-project-name }}.socket
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/{{ gunicorn-django-project-name }}.pid
+User={{ gunicorn-django-project-name }}
+Group={{ gunicorn-django-project-name }}
+WorkingDirectory={{ gunicorn-django-home-dir }}
+ExecStart={{ gunicorn-django-venv-dir }}/bin/python \
+          {{ gunicorn-django-venv-dir }}/bin/gunicorn \
+          --pythonpath {{ gunicorn-django-project-dir }}
+          --pid {{ gunicorn-django-home-dir}}/gunicorn.pid {{ gunicorn-django-wsgiscript }}
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+Environment=DEBUG={{ gunicorn-django-debug }}
+Environment=ALLOWED_HOSTS={{ {{ gunicorn-django-allowed-hosts }}
+Environment=MEDIA_ROOT={{ gunicorn-django-media-root }}
+Environment=DATABASE_URL={{ gunicorn-django-database-url }}
+Environment=SECRET_KEY={{ gunicorn-django-secret-key }}
+
+[Install]
+WantedBy=multi-user.target

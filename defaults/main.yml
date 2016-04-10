@@ -1,2 +1,6 @@
 ---
-# defaults file for .
+gunicorn-django-home-dir: "/home/{{ gunicorn-django-project-name }}"
+gunicorn-django-venv-dir: "{{ gunicorn-django-home-dir }}/venv"
+gunicorn-django-project-dir: "{{ gunicorn-django-home-dir }}/{{ gunicorn-django-project-name }}"
+gunicorn-django-wsgiscript: "{{ gunicorn-django-project-dir }}/{{ gunicorn-django-project-name }}/wsgi.py"
+gunicorn-django-debug: false

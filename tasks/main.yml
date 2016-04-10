@@ -9,13 +9,13 @@
 
 - name: Project user is present
   user:
-    name: "{{ gunicorn-django-user }}"
+    name: "{{ gunicorn-django-project-name }}"
 
 - name: Home directory is present
-  file: name: "/home/{{ gunicorn-django-user }}"
+  file: name: "/home/{{ gunicorn-django-project-name }}"
     state: directory
-    owner: "{{ gunicorn-django-user }}"
-    group: "{{ gunicorn-django-user }}"
+    owner: "{{ gunicorn-django-project-name }}"
+    group: "{{ gunicorn-django-project-name }}"
 
 - name: Gunicorn .service file is in place
   template:
