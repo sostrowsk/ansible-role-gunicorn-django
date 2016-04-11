@@ -1,7 +1,7 @@
 ---
 gunicorn_django_home_dir: "/home/{{ gunicorn_django_project_name }}"
-gunicorn_django_venv_dir: "{{ gunicorn_django_home_dir }}/venv"
-gunicorn_django_project_dir: "{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}"
+gunicorn_django_venv_dir: "{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name}}.{{ gunicorn_django_instance_tag }}/venv"
+gunicorn_django_project_dir: "{{ gunicorn_django_home_dir }}/{{ gunicorn_django_instance_tag }}/{{ gunicorn_django_project_name }}"
 gunicorn_django_wsgiscript: "{{ gunicorn_django_project_dir }}/{{ gunicorn_django_project_name }}/wsgi.py"
 gunicorn_django_debug: false
 gunicorn_django_media_root: "/var/srv/media/{{ gunicorn_django_project_name }}"

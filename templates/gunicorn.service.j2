@@ -1,17 +1,18 @@
 [Unit]
-Description=gunicorn daemon for {{ gunicorn_django_project_name }}
-Requires=gunicorn.{{ gunicorn_django_project_name }}.socket
+Description=gunicorn daemon for {{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}}
+Requires=gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.socket
 After=network.target
 
 [Service]
-PIDFile=/run/gunicorn/{{ gunicorn_django_project_name }}.pid
+PIDFile=/run/gunicorn/{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.pid
 User={{ gunicorn_django_project_name }}
 Group={{ gunicorn_django_project_name }}
 WorkingDirectory={{ gunicorn_django_home_dir }}
 ExecStart={{ gunicorn_django_venv_dir }}/bin/python \
           {{ gunicorn_django_venv_dir }}/bin/gunicorn \
           --pythonpath {{ gunicorn_django_project_dir }} \
-          --pid {{ gunicorn_django_home_dir}}/gunicorn.pid {{ gunicorn_django_wsgiscript }}
+          --pid /run/gunicorn/{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.pid \
+          {{ gunicorn_django_wsgiscript }}
 
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
