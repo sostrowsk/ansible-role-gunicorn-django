@@ -2,7 +2,7 @@
 Description=gunicorn daemon for {{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}
 
 [Socket]
-ListenStream=/tmp/gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}}.sock
+ListenStream=/tmp/gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.sock
 
 [Install]
 WantedBy=sockets.target
