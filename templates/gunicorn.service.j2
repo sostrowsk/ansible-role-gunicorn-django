@@ -1,6 +1,6 @@
 [Unit]
 Description=gunicorn daemon for {{ gunicorn_django_project_name }}.%I
-Requires=gunicorn.{{ gunicorn_django_project_name }}.%i.socket
+Requires=gunicorn.{{ gunicorn_django_project_name }}@%i.socket
 After=network.target
 
 [Service]
