@@ -21,17 +21,17 @@
 - name: Gunicorn .service file is in place
   template:
     src: gunicorn.service.j2
-    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.service
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.@.service
   notify: Reload systemd units
 
 - name: Gunicorn .socket file is in place
   template:
     src: gunicorn.socket.j2
-    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }}.socket
+    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}.@.socket
   notify: Reload systemd units
 
 - name: Gunicorn service is enabled and started
   service:
-    name: gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag }} 
+    name: gunicorn.{{ gunicorn_django_project_name }}.{{ gunicorn_django_instance_tag  }}.socket
     state: started
     enabled: true
