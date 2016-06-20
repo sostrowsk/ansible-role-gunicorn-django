@@ -11,7 +11,7 @@ WorkingDirectory={{ gunicorn_django_home_dir }}
 ExecStart=/bin/sh -c '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
           {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/gunicorn \
           -b unix://{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/gunicorn.sock \
-          -p {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i.pid
+          -p {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i.pid \
           --pythonpath {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i \
           {{ gunicorn_django_wsgiscript }}'
 
