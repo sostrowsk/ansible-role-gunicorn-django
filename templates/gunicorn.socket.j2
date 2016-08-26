@@ -1,8 +1,0 @@
-[Unit]
-Description=gunicorn socket for {{ gunicorn_django_project_name }}.%I
-
-[Socket]
-ListenStream={{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/gunicorn.sock
-
-[Install]
-WantedBy=sockets.target
