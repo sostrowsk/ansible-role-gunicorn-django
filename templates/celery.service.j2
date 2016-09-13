@@ -6,12 +6,12 @@ After=network.target
 PIDFile={{ gunicorn_django_home_dir }}/celery.{{ gunicorn_django_project_name }}.%i.pid
 User={{ gunicorn_django_project_name }}
 Group={{ gunicorn_django_project_name }}
-WorkingDirectory={{ gunicorn_django_home_dir }}
-ExecStart=/bin/sh -c '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
-          {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/celery \
-          -A {{ gunicorn_django_project_name }}.celery \
-          --pidfile {{ gunicorn_django_home_dir }}/celery.{{ gunicorn_django_project_name }}.%i.pid \
-          worker'
+WorkingDirectory={{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i
+ExecStart=/bin/sh -c \
+    '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
+     {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/celery worker \
+      -A {{ gunicorn_django_project_name }}.celery \
+      --pidfile {{ gunicorn_django_home_dir }}/celery.{{ gunicorn_django_project_name }}.%i.pid'
 
 [Install]
 WantedBy=multi-user.target
