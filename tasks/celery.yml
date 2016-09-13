@@ -9,3 +9,17 @@
     src: celery.service.j2
     dest: /etc/systemd/system/celery.{{ gunicorn_django_project_name }}@.service
   notify: Reload systemd units
+
+- name: "Celery: Add RabbitMQ vhost"
+  rabbitmq_vhost:
+    name: "/{{ gunicorn_django_project_name }}"
+
+- name: "Celery: Add RabbitMQ user"
+  rabbitmq_user:
+    user: "{{ gunicorn_django_project_name }}"
+    password: "{{ gunicorn_django_project_name }}"
+    permissions:
+      - vhost: "{{ gunicorn_django_project_name }}"
+        configure_priv: ".*"
+        read_priv: ".*"
+        write_priv: ".*"
