@@ -9,7 +9,9 @@ Group={{ gunicorn_django_project_name }}
 WorkingDirectory={{ gunicorn_django_home_dir }}
 ExecStart=/bin/sh -c '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
           {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/celery \
-          -A {{ gunicorn_django_project_name }}.celery worker'
+          -A {{ gunicorn_django_project_name }}.celery \
+          --pidfile {{ gunicorn_django_home_dir }}/celery.{{ gunicorn_django_project_name }}.%i.pid \
+          worker'
 
 [Install]
 WantedBy=multi-user.target
