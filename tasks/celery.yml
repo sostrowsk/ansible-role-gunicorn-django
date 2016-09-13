@@ -1,0 +1,11 @@
+---
+- name: Celery: Install RabbitMQ
+  apt:
+    name: rabbitmq-server
+    state: installed
+
+- name: Celery: Install systemd unit file
+  template:
+    src: celery.service.j2
+    dest: /etc/systemd/system/celery.{{ gunicorn_django_project_name }}@.service
+  notify: Reload systemd units

@@ -1,0 +1,15 @@
+[Unit]
+Description=celery daemon for {{ gunicorn_django_project_name }}.%I
+After=network.target
+
+[Service]
+PIDFile={{ gunicorn_django_home_dir }}/celery.{{ gunicorn_django_project_name }}.%i.pid
+User={{ gunicorn_django_project_name }}
+Group={{ gunicorn_django_project_name }}
+WorkingDirectory={{ gunicorn_django_home_dir }}
+ExecStart=/bin/sh -c '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
+          {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/celery \
+          -A {{ gunicorn_django_project_name }}.celery worker
+
+[Install]
+WantedBy=multi-user.target
