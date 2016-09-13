@@ -19,7 +19,7 @@
     user: "{{ gunicorn_django_project_name }}"
     password: "{{ gunicorn_django_project_name }}"
     permissions:
-      - vhost: "{{ gunicorn_django_project_name }}"
+      - vhost: "/{{ gunicorn_django_project_name }}"
         configure_priv: ".*"
         read_priv: ".*"
         write_priv: ".*"
