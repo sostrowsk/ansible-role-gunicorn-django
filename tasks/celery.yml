@@ -12,14 +12,14 @@
 
 - name: "Celery: Add RabbitMQ vhost"
   rabbitmq_vhost:
-    name: "/{{ gunicorn_django_project_name }}"
+    name: "{{ gunicorn_django_project_name }}"
 
 - name: "Celery: Add RabbitMQ user"
   rabbitmq_user:
     user: "{{ gunicorn_django_project_name }}"
     password: "{{ gunicorn_django_project_name }}"
     permissions:
-      - vhost: "/{{ gunicorn_django_project_name }}"
+      - vhost: "{{ gunicorn_django_project_name }}"
         configure_priv: ".*"
         read_priv: ".*"
         write_priv: ".*"
