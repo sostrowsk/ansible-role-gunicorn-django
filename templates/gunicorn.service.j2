@@ -23,5 +23,9 @@ Environment=MEDIA_ROOT={{ gunicorn_django_media_root }}
 Environment=DATABASE_URL={{ gunicorn_django_database_url }}
 Environment=SECRET_KEY={{ gunicorn_django_secret_key }}
 
+{% for item in gunicorn_django_extra_env %}
+Environment={{ item.key }}={{ item.value }}
+{% endfor %}
+
 [Install]
 WantedBy=multi-user.target
