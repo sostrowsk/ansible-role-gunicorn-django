@@ -6,6 +6,7 @@
   with_items:
   - python-psycopg2
   - node-less  # Required for in-request django-compressor compression.
+  - procmail  # To get the lockfile command which we use in our playbook.
 
 - name: Project user is present
   user:
