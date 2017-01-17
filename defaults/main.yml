@@ -6,4 +6,5 @@ gunicorn_django_wsgiscript: "{{ gunicorn_django_project_name }}.wsgi"
 gunicorn_django_debug: false
 gunicorn_django_media_root: "/var/srv/media/{{ gunicorn_django_project_name }}"
 gunicorn_django_extra_env: []
+gunicorn_django_num_workers: 1
 deploy_celery: false
