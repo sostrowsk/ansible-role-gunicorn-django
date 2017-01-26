@@ -13,7 +13,7 @@
 
 - name: "Celery: Restart rabbitmq"
   service:
-    name: rabbitmq
+    name: rabbitmq-server
     state: restarted
   when: "{{ rabbitmq_env_conf['changed'] }}"
 
@@ -30,7 +30,7 @@
 
 - name: "Celery: Start RabbitMQ"
   service:
-    name: rabbitmq
+    name: rabbitmq-server
     state: started
 
 - name: "Celery: Add RabbitMQ user"
