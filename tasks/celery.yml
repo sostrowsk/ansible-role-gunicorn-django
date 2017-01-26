@@ -26,6 +26,7 @@
 - name: "Celery: Add RabbitMQ vhost"
   rabbitmq_vhost:
     name: "{{ gunicorn_django_project_name }}"
+    node: rabbit@localhost
 
 - name: "Celery: Start RabbitMQ"
   service:
@@ -41,3 +42,4 @@
         configure_priv: ".*"
         read_priv: ".*"
         write_priv: ".*"
+    node: rabbit@localhost
