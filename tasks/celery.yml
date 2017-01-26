@@ -9,13 +9,13 @@
     dest: /etc/rabbitmq/rabbitmq-env.conf
     mode: 0644
     content: NODENAME=rabbit@localhost
-  register: rabbitmq-env_conf
+  register: rabbitmq_env_conf
 
 - name: "Celery: Restart rabbitmq"
   service:
     name: rabbitmq
     state: restarted
-  when: "{{ rabbitmq-env_conf['changed'] }}"
+  when: "{{ rabbitmq_env_conf['changed'] }}"
 
 - name: "Celery: Install systemd unit file"
   template:
