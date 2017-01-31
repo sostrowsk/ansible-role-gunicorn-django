@@ -4,6 +4,12 @@
     name: rabbitmq-server
     state: installed
 
+- name: "Celery: Stop rabbitmq"
+  service:
+    name: rabbitmq-server
+    state: stopped
+  when: "{{ rabbitmq_env_conf['changed'] }}"
+
 - name: "Celery: Install rabbitmq-env.conf"
   copy:
     dest: /etc/rabbitmq/rabbitmq-env.conf
@@ -11,10 +17,10 @@
     content: NODENAME=rabbit@localhost
   register: rabbitmq_env_conf
 
-- name: "Celery: Restart rabbitmq"
+- name: "Celery: Start rabbitmq"
   service:
     name: rabbitmq-server
-    state: restarted
+    state: started
   when: "{{ rabbitmq_env_conf['changed'] }}"
 
 - name: "Celery: Install systemd unit file"
