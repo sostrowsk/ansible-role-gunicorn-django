@@ -34,11 +34,6 @@
     name: "{{ gunicorn_django_project_name }}"
     node: rabbit@localhost
 
-- name: "Celery: Start RabbitMQ"
-  service:
-    name: rabbitmq-server
-    state: started
-
 - name: "Celery: Add RabbitMQ user"
   rabbitmq_user:
     user: "{{ gunicorn_django_project_name }}"
