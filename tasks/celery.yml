@@ -1,7 +1,7 @@
 ---
 - name: "Celery: make sure rabbitmq directory exists"
-  copy:
-    dest: /etc/rabbitmq
+  file:
+    path: /etc/rabbitmq
     state: directory
     mode: 0755
 
