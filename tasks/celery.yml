@@ -1,4 +1,10 @@
 ---
+- name: "Celery: make sure rabbitmq directory exists"
+  copy:
+    dest: /etc/rabbitmq
+    state: directory
+    mode: 0755
+
 - name: "Celery: Install rabbitmq-env.conf"
   copy:
     dest: /etc/rabbitmq/rabbitmq-env.conf
