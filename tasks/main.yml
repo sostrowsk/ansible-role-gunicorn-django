@@ -21,7 +21,7 @@
 - name: Gunicorn .service file is in place
   template:
     src: gunicorn.service.j2
-    dest: /etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}@.service
+    dest: "/etc/systemd/system/gunicorn.{{ gunicorn_django_project_name }}@.service"
   notify: Reload systemd units
 
 - include: celery.yml
