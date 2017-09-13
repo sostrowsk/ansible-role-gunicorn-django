@@ -1,1 +1,31 @@
-xxx
+[Unit]
+Description=gunicorn daemon for {{ gunicorn_django_project_name }}.%I
+After=network.target
+
+[Service]
+PIDFile={{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i.pid
+User={{ gunicorn_django_project_name }}
+Group={{ gunicorn_django_project_name }}
+WorkingDirectory={{ gunicorn_django_home_dir }}
+ExecStart=/bin/sh -c '{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/python \
+          {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/venv/bin/gunicorn \
+          -b unix://{{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i/gunicorn.sock \
+          -p {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i.pid \
+          -w {{ gunicorn_django_num_workers }} \
+          --pythonpath {{ gunicorn_django_home_dir }}/{{ gunicorn_django_project_name }}.%i \
+          {{ gunicorn_django_wsgiscript }}'
+
+# PrivateTmp=true
+Environment=DEBUG={{ gunicorn_django_debug }}
+Environment=ALLOWED_HOSTS={% for host in gunicorn_django_allowed_hosts %}{{ host }},{% endfor %}
+
+Environment=MEDIA_ROOT={{ gunicorn_django_media_root }}
+Environment=DATABASE_URL={{ gunicorn_django_database_url }}
+Environment=SECRET_KEY={{ gunicorn_django_secret_key }}
+
+{% for item in gunicorn_django_extra_env %}
+Environment={{ item.key }}={{ item.value }}
+{% endfor %}
+
+[Install]
+WantedBy=multi-user.target
