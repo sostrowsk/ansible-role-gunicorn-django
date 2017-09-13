@@ -23,7 +23,7 @@ Environment=MEDIA_ROOT={{ gunicorn_django_media_root }}
 Environment=DATABASE_URL={{ gunicorn_django_database_url }}
 Environment=SECRET_KEY={{ gunicorn_django_secret_key }}
 
-{% for key, value in gunicorn_django_extra_env %}
+{% for key, value in gunicorn_django_extra_env.items() %}
 Environment={{ key }}={{ value }}
 {% endfor %}
 
