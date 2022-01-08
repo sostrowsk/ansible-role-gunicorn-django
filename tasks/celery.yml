@@ -15,7 +15,7 @@
 - name: "Celery: Install RabbitMQ"
   apt:
     name: rabbitmq-server
-    state: installed
+    state: present
 
 - name: "Celery: Stop rabbitmq"
   service:
