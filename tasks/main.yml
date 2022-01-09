@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
-  - python-psycopg2
+  - python3-psycopg2
   - node-less  # Required for in-request django-compressor compression.
 
 - name: Project user is present
